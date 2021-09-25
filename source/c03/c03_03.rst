@@ -1,4 +1,13 @@
 3.3 为什么 slice 元素是可寻址的？
 =================================
 
-因为 slice 底层实现了一个数组，它是可以寻址的。
+因为 slice
+底层结构其实是一个匿名数组，既然数组的元素是可寻址的，那切片的元素自然也可以寻址。
+
+.. code:: go
+
+   type slice struct {
+       array unsafe.Pointer
+       len   int
+       cap   int
+   }

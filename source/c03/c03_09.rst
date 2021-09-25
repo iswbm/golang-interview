@@ -1,5 +1,68 @@
 3.9 数组对比切片有哪些优势？
 ============================
 
-1. 定长方便
------------
+1. 编译检查越界
+---------------
+
+由于数组在声明后，长度就是固定的，因此在编译的时候编译器可以检查在索引取值的时候，是否有越界
+
+.. code:: go
+
+   func main() {
+       array := [2]int{}
+       array[2] = 2  //invalid array index 2 (out of bounds for 2-element array)
+   }
+
+而切片的长度只有运行时才能知晓，编译器无法检查。
+
+2. 长度是类型的一部分
+---------------------
+
+在声明一个数组的类型时，需要指明两点：元素的类型和元素的个数。
+
+.. code:: go
+
+   var array [2]int
+
+因此长度是数组类型的一部分，两个元素类型相同，但可包含的元素个数不同的数组，属于两个类型。
+
+.. code:: go
+
+   func main() {
+       var array1 [2]int
+       var array2 [2]int
+       var array3 [3]int
+       fmt.Println(reflect.TypeOf(array1) == reflect.TypeOf(array2)) // true
+       fmt.Println(reflect.TypeOf(array1) == reflect.TypeOf(array3)) // false
+   }
+
+基于这个特点，可以用它来达到一些合法性校验的目的，例如 IPv4
+的地址可以声明为 [4]byte，符合该类型的数组就是合法的 ip，反之则不合法。
+
+3. 数组可以比较
+---------------
+
+类型相同的两个数组可以进行比较
+
+.. code:: go
+
+   func main() {
+       array1 := [2]int{1,2}
+       array2 := [2]int{1,2}
+       array3 := [2]int{2,1}
+       fmt.Println(array1 == array2) // true
+       fmt.Println(array1 == array3) // false
+   }
+
+类型不同（长度不同）的数组 和 切片均不行。
+
+可比较这一特性，决定了数组也可以用来当 map 的 key 使用。
+
+.. code:: go
+
+   func main() {
+       array1 := [2]int{1,2}
+       dict := make(map[[2]int]string)
+       dict[array1] = "hello"
+       fmt.Println(dict) // map[[1 2]:hello]
+   }

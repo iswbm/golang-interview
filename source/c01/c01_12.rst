@@ -1,0 +1,44 @@
+1.12 Go 语言中 hot path 有什么用呢？
+====================================
+
+hot path ，热点路径，顾名思义，是你的程序中那些会频繁执行到的代码。
+
+对于这些代码，由于执行次数非常多，意味着只要有一点设计或编码问题，影响就会被不断放大，而相反，你只要在这些代码中做一些优化，带来的效果也是非常明显的。
+
+hot path 只是一个概念，到底你的程序中有哪些 hot path
+还需要根据实际情况分析。
+
+这边举一个比较常见的 hot path 优化的例子，在 ``sync.Once``
+有这么一段代码
+
+在注释中首次提到了 ``hot path`` 概念
+
+.. code:: go
+
+   // src/sync/once.go 
+
+   // Once is an object that will perform exactly one action.
+   //
+   // A Once must not be copied after first use.
+   type Once struct {
+       // done indicates whether the action has been performed.
+       // It is first in the struct because it is used in the hot path.
+       // The hot path is inlined at every call site.
+       // Placing done first allows more compact instructions on some architectures (amd64/386),
+       // and fewer instructions (to calculate offset) on other architectures.
+       done uint32
+       m    Mutex
+   }
+
+这是什么意思呢？
+
+-  当需要访问struct的第一个字段时，我们可以直接对指针解引用来访问第一个字段。
+-  要访问其他字段时，除了结构指针之外， 还需要提供与第一个字段的偏移量
+
+在机器码中，这个偏移量是传递指令的附加值，这会使指令变得更长。对性能的影响是，CPU必须对结构指针添加偏移量以获取想要访问的字段的地址。
+
+**因此访问struct的第一个字段的机器码更快，更加紧凑。**
+
+这里假设字段在内存中的布局与结构定义中的布局相同，因为编译器可以决定改变内存中结构的字段顺序来优化存储空间，目前go编译器未做这样的优化。
+
+这是一个小优化，在一些对性能优化有极致的要求的人是值得得关注的点。

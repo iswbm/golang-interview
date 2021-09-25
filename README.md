@@ -7,9 +7,9 @@
 - **第一章：基础篇**
    * [1.1 Go 中的 = 和 := 有什么区别？](https://go-interview.iswbm.com/c01/c01_01.html)
    * [1.2 Go 中的指针的意义是什么？](https://go-interview.iswbm.com/c01/c01_02.html)
-   * [1.3 Go 允许多个返回值吗？](https://go-interview.iswbm.com/c01/c01_03.html)
+   * [1.3 Go 多值返回有什么用？](https://go-interview.iswbm.com/c01/c01_03.html)
    * [1.4 Go 有异常类型吗？](https://go-interview.iswbm.com/c01/c01_04.html)
-   * [1.5 Go 中的 rune 类型是什么？](https://go-interview.iswbm.com/c01/c01_05.html)
+   * [1.5 Go 中的 rune 和 byte 有什么区别？](https://go-interview.iswbm.com/c01/c01_05.html)
    * [1.6 Go 语言中的深拷贝和浅拷贝？](https://go-interview.iswbm.com/c01/c01_06.html)
    * [1.7 什么叫字面量和组合字面量？](https://go-interview.iswbm.com/c01/c01_07.html)
    * [1.8 对象选择器自动解引用怎么用？](https://go-interview.iswbm.com/c01/c01_08.html)

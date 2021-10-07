@@ -1,7 +1,47 @@
 1.7 什么叫字面量和组合字面量？
 ==============================
 
-值的字面量是代码中值的文字表示。一个值可能存在多种字面量表示。
+说出来不怕大家笑话，在去年年初我刚开始学习 Go
+基础的时候，有一个词困扰了我好久，这个词就是 **字面量**\ 。
+
+字面量到底是啥东西？怎么那么多的基础教程里反复会提及，却从来没人（至少我看过的很多基础教程都没有）把这个名词的概念解释一下呢？
+
+相信正在看这篇文章的你，可能也会有此疑问，今天我就梳理一下，我理解中的
+**字面量**\ ，是什么意思？
+
+1. 什么是字面量？
+-----------------
+
+在 Go 中内置的基本类型有：
+
+-  布尔类型：\ ``bool``
+
+-  11个内置的整数数字类型：\ ``int8``, ``uint8``, ``int16``, ``uint16``,
+   ``int32``, ``uint32``, ``int64``, ``uint64``, ``int``,
+   ``uint``\ 和\ ``uintptr``
+
+-  浮点数类型：\ ``float32``\ 和\ ``float64``
+
+-  复数类型：\ ``complex64``\ 和\ ``complex128``
+
+-  字符串类型：\ ``string``
+
+而这些基本类型值的文本，就是基本字面量。
+
+比如下面这两个字符串，都是字符串字面量，没有用变量名或者常量名来指向这两个字面量，因此也称之为
+**未命名常量**\ 。
+
+.. code:: go
+
+   "hello, iswbm"
+
+   `hello,
+   iswbm`
+
+2. 同值不同字面量
+-----------------
+
+值的字面量（literal）是代码中值的文字表示，一个值可能存在多种字面量表示。
 
 举个例子，十进制的数值 15，可以由三种字面量表示
 
@@ -26,23 +66,193 @@
        fmt.Println(15 == 0xF)     // true
        fmt.Println(15 == 017)     // true
        fmt.Println(15 == 0b1111)  // true
-
    }
 
-表示基本类型值的文本称为基本字面量，基本字面量也被称为字面量常量或未命名常量。包括：
+3. 字面量和变量有啥区别？
+-------------------------
 
--  布尔字面量（非严格意义上的字面量）
--  整型字面量
--  浮点数字面量
--  虚数字面量
--  Rune 字面量
--  字符串字面量
--  等等
+下面这是一段很正常的代码
 
-基本字面量，很好理解，那组合字面量呢？
+.. code:: go
 
-不就是把多个基本字面量组合在一起的字面量嘛。
+   func foo() string {
+       return "hello"
+   }
 
-比如结构体，切片，数组，字典，他们都可以容纳多个基本字面量。
+   func main() {
+       bar := foo()
+       fmt.Println(&bar)
+   }
+
+可要是换成下面这样
+
+.. code:: go
+
+   func foo() string {
+       return "hello"
+   }
+
+   func main() {
+       fmt.Println(&foo())
+   }
+
+可实际上这段代码是有问题的，运行后会报错
+
+::
+
+   ./demo.go:11:14: cannot take the address of foo()
+
+你一定觉得很奇怪吧？
+
+为什么先用变量名承接一下再取地址就不会报错，而直接使用在函数返回后的值上取地址就不行呢？
+
+这是因为，如果不使用一个变量名承接一下，函数返回的是一个字符串的文本值，也就是字符串字面量，而这种基本类型的字面量是不可寻址的。
+
+要想使用 ``&`` 进行寻址，就必须得用 变量名承接一下。
+
+4. 什么是组合字面量？
+---------------------
+
+首先看下Go文档中对组合字面量（Composite Literal）的定义：
+
+   Composite literals construct values for structs, arrays, slices, and
+   maps and create a new value each time they are evaluated. They
+   consist of the type of the literal followed by a brace-bound list of
+   elements. Each element may optionally be preceded by a corresponding
+   key。
+
+翻译成中文大致如下：
+组合字面量是为结构体、数组、切片和map构造值，并且每次都会创建新值。它们由字面量的类型后紧跟大括号及元素列表。每个元素前面可以选择性的带一个相关key。
+
+**什么意思呢？所谓的组合字面量其实就是把对象的定义和初始化放在一起了**\ 。
+
+接下来让我们看看结构体、数组、切片和map各自的常规方式和组合字面量方式。
+
+结构体的定义和初始化
+~~~~~~~~~~~~~~~~~~~~
+
+让我们看一个struct结构体的常规的定义和初始化是怎么样的。
+
+**常规方式**
+
+常规方式这样定义是逐一字段赋值，这样就比较繁琐。
+
+.. code:: golang
+
+   type Profile struct {
+       Name string
+       Age int
+       Gender string
+   }
+
+   func main() {
+       // 声明对象
+       var xm Profile
+       
+       // 属性赋值
+       xm.Name = "iswbm"
+       xm.Age = 18
+       xm.Gender = "male"
+   }
+
+**组合字面量方式**
+
+.. code:: golang
+
+   type Profile struct {
+       Name string
+       Age int
+       Gender string
+   }
+
+   func main() {
+       // 声明 + 属性赋值
+       xm := Profile{
+           Name:   "iswbm",
+           Age:    18,
+           Gender: "male",
+       }
+   }
+
+数组的定义和初始化
+~~~~~~~~~~~~~~~~~~
+
+**常规方式**
+
+在下面的代码中，我们在第1行定义了一个8个元素大小的字符串数组。然后一个一个的给元素赋值。即数组变量的定义和初始化是分开的。
+
+.. code:: golang
+
+   var planets [8]string
+
+   planets[0] = "Mercury" //水星
+   planets[1] = "Venus" //金星
+   planets[2] = "Earth" //地球
+
+**组合字面量方式**
+
+该示例中，就是将变量balls的定义和初始化合并了在一起。
+
+.. code:: golang
+
+   balls := [4]string{"basketball", "football", "Volleyball", "Tennis"}
+
+slice的定义和初始化
+~~~~~~~~~~~~~~~~~~~
+
+**常规方式**
+
+.. code:: golang
+
+   // 第一种
+   var s []string //定义切片变量s，s为默认零值nil
+   s = append(s, "hat", "shirt") //往s中增加元素，len(s):2,cap(s):2
+
+   // 第二种
+   s := make([]string, 0, 10) //定义s，s的默认值不为零值
+
+-  **组合字面量方式**
+
+由上面的常规方式可知，首先都是需要先定义切片，然后再往切片中添加元素。接下来我们看下组合字面量方式。
+
+.. code:: golang
+
+   s := []string{"hat", "shirt"} //定义和初始化一步完成，自动计算切片的容量和长度
+   // or
+   var s = []string{"hat", "shirt"}
+
+map的定义和初始化
+~~~~~~~~~~~~~~~~~
+
+**常规方式**
+
+.. code:: golang
+
+   //通过make函数初始化
+   m := make(map[string]int, 10)
+   m["english"] = 99
+   m["math"] = 98
+
+-  **组合字面量方式**
+
+.. code:: golang
+
+   m := map[string]int {
+       "english": 99,
+       "math": 98,
+   }
+
+   //组合字面量初始化多维map
+   m2 := map[string]map[int]string {
+       "english": {
+           10: "english",
+       },
+   }
+
+显然，使用组合字面量会比常规方式简单了不少。
 
 参考阅读：https://www.jianshu.com/p/0134120abc39
+
+https://go101.org/article/basic-types-and-value-literals.html
+
+https://juejin.cn/post/7006308676688429070

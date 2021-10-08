@@ -19,6 +19,7 @@
    * [1.12 Go 语言中 hot path 有什么用呢？](https://go-interview.iswbm.com/c01/c01_12.html)
    * [1.13 引用类型与指针，有什么不同？](https://go-interview.iswbm.com/c01/c01_13.html)
    * [1.14 Go 是值传递，还是引用传递、指针传递？](https://go-interview.iswbm.com/c01/c01_14.html)
+   * [1.15 Go中哪些是可寻址，哪些是不可寻址的？](https://go-interview.iswbm.com/c01/c01_15.html)
 - **第二章：进阶篇**
    * [2.1 slice 扩容后容量及内存如何计算？](https://go-interview.iswbm.com/c02/c02_01.html)
    * [2.2 goroutine 存在的意义是什么？](https://go-interview.iswbm.com/c02/c02_02.html)
@@ -31,6 +32,8 @@
    * [2.9 不分配内存的指针类型能用吗？](https://go-interview.iswbm.com/c02/c02_09.html)
    * [2.10 如何让在强制转换类型时不发生内存拷贝？](https://go-interview.iswbm.com/c02/c02_10.html)
    * [2.11 Go 中的 GC 演变是怎样的？](https://go-interview.iswbm.com/c02/c02_11.html)
+   * [2.12 Go 中哪些动作会触发 runtime 调度？](https://go-interview.iswbm.com/c02/c02_12.html)
+   * [2.13 有哪些情况会导致协程泄露？](https://go-interview.iswbm.com/c02/c02_13.html)
 - **第三章：原理篇**
    * [3.1 局部变量分配在栈上还是堆上？](https://go-interview.iswbm.com/c03/c03_01.html)
    * [3.2 为什么常量、字符串和字典不可寻址？](https://go-interview.iswbm.com/c03/c03_02.html)
@@ -41,6 +44,8 @@
    * [3.7 Go 里是怎么比较相等与否？](https://go-interview.iswbm.com/c03/c03_07.html)
    * [3.8 所有的 T 类型都有 *T 类型吗？](https://go-interview.iswbm.com/c03/c03_08.html)
    * [3.9 数组对比切片有哪些优势？](https://go-interview.iswbm.com/c03/c03_09.html)
+   * [3.10 GMP 偷取 G 为什么不需要加锁？](https://go-interview.iswbm.com/c03/c03_10.html)
+   * [3.11 堆引用栈内存是怎么回收的？](https://go-interview.iswbm.com/c03/c03_11.html)
 
 ## 欢迎交流
 

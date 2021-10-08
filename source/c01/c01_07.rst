@@ -285,7 +285,8 @@ map的定义和初始化
        // cannot take the address of foo()
    }
 
-关于寻址性的内容，你可以在我的上一篇文章中进行学习，总结得非常详细。
+关于寻址性的内容，你可以在我的另一篇文章中（\ `1.15
+Go中哪些是可寻址，哪些是不可寻址的？ <https://go-interview.iswbm.com/c01/c01_15.html>`__\ ）进行学习，总结得非常详细。
 
 .. |image0| image:: http://image.iswbm.com/20211008234746.png
 

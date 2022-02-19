@@ -10,4 +10,4 @@ cat << EOF >/usr/local/lib/python3.6/site-packages/sphinx_rtd_theme/comments.htm
 </comments>
 EOF
 
-rm -rf build/ && sphinx-multiversion source build/html && cp -rf build/html/master/* build/html/
+rm -rf build/ && sphinx-multiversion source build/html && cp -rf build/html/main/* build/html/

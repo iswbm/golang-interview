@@ -9,14 +9,9 @@ from git import Repo
 
 osName = platform.system()
 repo_path ='.'
-if (osName == 'Windows'):
-    repo_path = 'E:\\MING-Git\\GolangCodingTime'
-    blog_path = 'E:\\MING-Git\GolangCodingTime\\source'
-    index_path = 'E:\\MING-Git\\GolangCodingTime\\README.md'
-elif (osName == 'Darwin'):
-    repo_path = '/Users/MING/Github/golang-interview/'
-    blog_path = '/Users/MING/Github/golang-interview/source'
-    index_path = '/Users/MING/Github/golang-interview/README.md'
+repo_path = '/Users/iswbm/Documents/Github/golang-interview/'
+blog_path = '/Users/iswbm/Documents/Github/golang-interview/source'
+index_path = '/Users/iswbm/Documents/Github/golang-interview/README.md'
 
 
 #repo = Repo.init(path=repo_path)

@@ -6,7 +6,7 @@
 
 interface 的内部实现包含了两个字段，一个是 type，一个是 data
 
-|image0|
+.. image:: http://image.iswbm.com/20200610235106.png
 
 因此两个 interface 比较，势必与这两个字段有所关系。
 
@@ -124,6 +124,3 @@ interface 的值就为 nil
 因此当 nil 转换为interface 后是 ``(type=nil, data=nil)`` ，这与 b
 ``(type=*string, data=nil)`` 虽然 data 是一样的，但 type
 不相等，因此他们并不相等。
-
-.. |image0| image:: http://image.iswbm.com/20200610235106.png
-

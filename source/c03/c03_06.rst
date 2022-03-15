@@ -7,7 +7,7 @@
 字长（word size），指的是 CPU 一次可以访问数据的最大长度：
 
 -  对于 32 位的 cpu 来说：word size 为 ``2^32``\ ，即 4 byte
--  对于 32 位的 cpu 来说：word size 为 ``2^64``\ ，即 8 byte
+-  对于 64 位的 cpu 来说：word size 为 ``2^64``\ ，即 8 byte
 
 两种内存布局
 ------------

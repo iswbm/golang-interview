@@ -24,21 +24,21 @@
 
 .. code:: go
 
-        newcap := old.cap
-       if newcap+newcap < cap {
-           newcap = cap
-       } else {
-           for {
-               if old.len < 1024 {
-                   newcap += newcap
-               } else {
-                   newcap += newcap / 4
-               }
-               if newcap >= cap {
-                   break
-               }
+   newcap := old.cap
+   if newcap+newcap < cap {
+       newcap = cap
+   } else {
+       for {
+           if old.len < 1024 {
+               newcap += newcap
+           } else {
+               newcap += newcap / 4
+           }
+           if newcap >= cap {
+               break
            }
        }
+   }
 
 对于这段代码，只要理解前两行，其他的就不攻自破了
 

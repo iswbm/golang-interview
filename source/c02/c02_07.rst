@@ -63,7 +63,7 @@
 线程，是有巨大的时间浪费在线程上下文的切换，如果切换得太频繁，就会有大量的
 CPU 时间白白浪费。
 
-|image0|
+.. image:: http://image.iswbm.com/20210904140447.png
 
 因此，通常会限制最小的时间片的长度，假设为
 2ms，受此调整，现在调度周期就会变成 2*1000 = 2s 。
@@ -164,6 +164,3 @@ stealing 从其他 P 偷不到 G 时，它可以从全局 G 队列获取 G。
 
 -  `[典藏版] Golang 调度器 GMP
    原理与调度全分析 <https://learnku.com/articles/41728>`__
-
-.. |image0| image:: http://image.iswbm.com/20210904140447.png
-
